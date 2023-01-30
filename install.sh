@@ -4,6 +4,7 @@ sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /
 yum makecache
 yum remove -y vim-*
 yum install -y git
+yum install -y diff
 yum install -y make
 yum install gcc gcc-c++ -y
 yum install ncurses-devel -y
@@ -56,6 +57,17 @@ echo '{"dependencies": {}}' > package.json
 
 
 mv -f ~/.vimrc.final ~/.vimrc
-mv -f ~/bear /usr/bin/
 rm -rf ~/vim  
-ln -s /usr/bin/python3 /usr/bin/python
+ln -s /usr/local/vim/bin/vim /usr/bin/vi
+
+yum install -y cmake
+cd /root 
+pip3 install lit
+git clone https://github.com/rizsotto/Bear.git
+cd /root/Bear
+git checkout 2.4.4
+mkdir -p /root/build
+cd /root/build
+cmake /root/Bear
+make all
+make install
